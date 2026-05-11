@@ -99,10 +99,22 @@ body {
   position: relative;
 }
 
-.app-header h1 {
+.app-header h1,
+.app-header .app-title {
   font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.title-logo {
+  height: 2rem;
+  width: auto;
+  border-radius: 6px;
 }
 
 .app-header .subtitle {
