@@ -1,0 +1,22 @@
+{
+  "name": "dragonshield-to-moxfield",
+  "version": "1.0.0",
+  "description": "Convertisseur CSV DragonShield vers Moxfield",
+  "type": "module",
+  "scripts": {
+    "test": "vitest --run",
+    "test:coverage": "vitest --run --coverage"
+  },
+  "keywords": [
+    "dragonshield",
+    "moxfield",
+    "csv",
+    "converter",
+    "mtg"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "^3.2.1"
+  }
+}

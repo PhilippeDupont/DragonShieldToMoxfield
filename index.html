@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DragonShield → Moxfield Converter</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main class="container">
+        <header class="app-header">
+            <h1>DragonShield → Moxfield Converter</h1>
+            <p class="subtitle">Convertissez vos exports DragonShield au format Moxfield, directement dans votre navigateur.</p>
+        </header>
+
+        <section class="upload-section" aria-labelledby="upload-heading">
+            <h2 id="upload-heading" class="sr-only">Chargement des fichiers</h2>
+
+            <div id="drop-zone" class="drop-zone" role="region" aria-label="Zone de dépôt de fichiers" tabindex="0">
+                <div class="drop-zone__content">
+                    <svg class="drop-zone__icon" aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                        <polyline points="17 8 12 3 7 8"/>
+                        <line x1="12" y1="3" x2="12" y2="15"/>
+                    </svg>
+                    <p class="drop-zone__text">Glissez vos fichiers CSV ici</p>
+                    <p class="drop-zone__hint">ou</p>
+                    <label for="file-input" class="btn btn--secondary">
+                        Sélectionner des fichiers
+                    </label>
+                    <input type="file" id="file-input" multiple accept=".csv" class="sr-only" aria-label="Sélectionner des fichiers CSV">
+                </div>
+            </div>
+
+            <div id="file-list" class="file-list" role="list" aria-label="Fichiers sélectionnés" aria-live="polite" hidden>
+            </div>
+
+            <button id="convert-btn" class="btn btn--primary" disabled aria-label="Convertir les fichiers sélectionnés">
+                Convertir
+            </button>
+        </section>
+
+        <section id="results-section" class="results-section" aria-labelledby="results-heading" hidden>
+            <h2 id="results-heading">Résultats</h2>
+            <div id="results-list" class="results-list" role="list" aria-live="polite">
+            </div>
+            <div id="download-all" class="download-all" hidden>
+                <button id="zip-btn" class="btn btn--primary">
+                    Télécharger tout (ZIP)
+                </button>
+            </div>
+        </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
