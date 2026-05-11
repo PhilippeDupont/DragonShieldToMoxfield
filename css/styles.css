@@ -96,6 +96,7 @@ body {
 .app-header {
   text-align: center;
   margin-bottom: 2rem;
+  position: relative;
 }
 
 .app-header h1 {
@@ -107,6 +108,26 @@ body {
 .app-header .subtitle {
   color: var(--color-text-muted);
   font-size: 1rem;
+}
+
+/* === Language Button === */
+.btn-lang {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 0.4rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--transition);
+}
+
+.btn-lang:hover {
+  border-color: var(--color-primary);
 }
 
 /* === Buttons === */
@@ -416,4 +437,19 @@ body {
   .container {
     max-width: 640px;
   }
+}
+
+/* === Footer === */
+.app-footer {
+  max-width: 720px;
+  margin: 3rem auto 0;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.disclaimer {
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  line-height: 1.6;
 }

@@ -4,6 +4,7 @@ import { parseCSV } from './parser.js';
 import { mapEntries } from './mapper.js';
 import { writeCSV } from './writer.js';
 import { readFile, createDownloadURL, createZipArchive } from './file-handler.js';
+import { initLang, toggleLang, t } from './i18n.js';
 
 /** @type {File[]} */
 let selectedFiles = [];
@@ -15,10 +16,17 @@ let convertedFiles = [];
  * Initialise l'application : attache les événements UI.
  */
 export function init() {
+  // Initialize i18n
+  initLang();
+
   const dropZone = document.getElementById('drop-zone');
   const fileInput = document.getElementById('file-input');
   const convertBtn = document.getElementById('convert-btn');
   const zipBtn = document.getElementById('zip-btn');
+  const langBtn = document.getElementById('lang-btn');
+
+  // Language toggle
+  langBtn.addEventListener('click', toggleLang);
 
   // Click on drop zone triggers file input
   dropZone.addEventListener('click', (e) => {
@@ -149,7 +157,7 @@ function hideResults() {
 async function handleConvert() {
   const convertBtn = document.getElementById('convert-btn');
   convertBtn.disabled = true;
-  convertBtn.textContent = 'Conversion en cours…';
+  convertBtn.textContent = t('converting');
 
   convertedFiles = [];
   const resultsSection = document.getElementById('results-section');
@@ -171,7 +179,7 @@ async function handleConvert() {
   downloadAll.hidden = convertedFiles.length <= 1;
 
   convertBtn.disabled = false;
-  convertBtn.textContent = 'Convertir';
+  convertBtn.textContent = t('convert');
 }
 
 /**
@@ -272,7 +280,7 @@ function renderResult(result) {
     // Info line
     const info = document.createElement('div');
     info.className = 'result-card__info';
-    info.textContent = `${result.entryCount} carte${result.entryCount > 1 ? 's' : ''} convertie${result.entryCount > 1 ? 's' : ''}`;
+    info.textContent = t('cardsConverted')(result.entryCount);
     card.appendChild(info);
 
     // Warnings
@@ -289,7 +297,7 @@ function renderResult(result) {
     downloadLink.href = url;
     downloadLink.download = result.filename;
     downloadLink.className = 'btn btn--download';
-    downloadLink.textContent = 'Télécharger';
+    downloadLink.textContent = t('download');
     downloadLink.setAttribute('aria-label', `Télécharger ${result.filename}`);
 
     downloadDiv.appendChild(downloadLink);
@@ -313,7 +321,7 @@ function renderWarnings(warnings) {
   const toggle = document.createElement('button');
   toggle.className = 'warnings__toggle';
   toggle.setAttribute('aria-expanded', String(!collapsed));
-  toggle.textContent = `⚠ ${warnings.length} avertissement${warnings.length > 1 ? 's' : ''}`;
+  toggle.textContent = t('warnings')(warnings.length);
 
   const list = document.createElement('ul');
   list.className = 'warnings__list';
@@ -342,7 +350,7 @@ function renderWarnings(warnings) {
 async function handleZipDownload() {
   const zipBtn = document.getElementById('zip-btn');
   zipBtn.disabled = true;
-  zipBtn.textContent = 'Création du ZIP…';
+  zipBtn.textContent = t('creatingZip');
 
   try {
     const blob = await createZipArchive(convertedFiles);
@@ -366,7 +374,7 @@ async function handleZipDownload() {
     downloadAll.appendChild(errorMsg);
   } finally {
     zipBtn.disabled = false;
-    zipBtn.textContent = 'Télécharger tout (ZIP)';
+    zipBtn.textContent = t('downloadAll');
   }
 }
 
