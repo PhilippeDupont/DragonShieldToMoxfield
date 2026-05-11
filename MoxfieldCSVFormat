@@ -1,0 +1,270 @@
+The expected column headers are:
+
+Count
+
+Name
+
+Edition
+
+Condition
+
+Language
+
+Foil
+
+Collector Number
+
+Alter
+
+Playtest Card
+
+Purchase Price
+
+These must be spelled exactly as above, including case. Avoid adding an erroneous space before or after any header. However, the order of the column headers is irrelevant. Just be sure that each column header corresponds with the correct column data. Furthermore, only Name is absolutely required, but it is highly advised that you also include, at least, Count, Edition, Collector Number, and Foil to ensure that you get the correct card and quantity in your collection.
+
+Count requires simply a number. Do not add any decimal seperators to the number.
+
+Name requires the exact name, including punctuation, of the card.
+
+Edition requires the set code rather than the set name. Moxfield uses Scryfall set codes, which can be found here.
+
+Condition can take either the long form or short form of the following:
+
+Short Form
+
+Long Form
+
+M
+
+Mint
+
+NM
+
+Near Mint
+
+LP
+
+Lightly Played
+
+MP
+
+Played
+
+HP
+
+Heavily Played
+
+D or DM
+
+Damaged
+
+Language requires any of the following in either the long form or either of the short forms:
+
+CODE
+
+PRINTED CODE
+
+LANGUAGE
+
+en
+
+en
+
+English
+
+es
+
+sp
+
+Spanish
+
+fr
+
+fr
+
+French
+
+de
+
+de
+
+German
+
+it
+
+it
+
+Italian
+
+pt
+
+pt
+
+Portuguese
+
+ja
+
+jp
+
+Japanese
+
+ko
+
+kr
+
+Korean
+
+ru
+
+ru
+
+Russian
+
+zhs
+
+cs
+
+Simplified Chinese
+
+zht
+
+ct
+
+Traditional Chinese
+
+he
+
+
+Hebrew
+
+la
+
+
+Latin
+
+grc
+
+
+Ancient Greek
+
+ar
+
+
+Arabic
+
+sa
+
+
+Sanskrit
+
+ph
+
+ph
+
+Phyrexian
+
+If a language is not chosen, or if there is no Language column, the cards will default to English.
+
+Foil requires either a blank cell for no foiling, foil for normal foiling, or etched for etched foiling. Special treatments, such as gilded or textured foils, are not accepted and unnecessary. Those cards have their own collector number, which can be used to differentiate them from other treatments.
+
+Collector Number simply requires a number. Rarely, a letter or star (★) will be appended onto the collector numbers of certain cards.
+
+Alter is a boolean field that accepts either TRUE or FALSE. If this field is left blank, Moxfield will assume it is false.
+
+Playtest Card is a boolean field that accepts either TRUE or FALSE. If this field is left blank, Moxfield will assume it is false.
+
+Purchase Price accepts any number rounded to two decimal places. Do not include any currency symbols.
+
+An example of a Moxfield formatted CSV may look like this:
+
+"Count","Name","Edition","Condition","Language","Foil","Collector Number","Alter","Playtest Card","Purchase Price" "1","Adrix and Nev, Twincasters","c21","Near Mint","English","foil","9","","FALSE","" "1","Adrix and Nev, Twincasters","oc21","LP","English","etched","9","TRUE","","" "1","Advance Scout","tmp","HP","English","","1","","","" "4","Advanced Stitchwing","2x2","NM","English","","36","","","0.21"
+This would correspond with the following table:
+
+Count
+
+Name
+
+Edition
+
+Condition
+
+Language
+
+Foil
+
+Collector Number
+
+Alter
+
+Playtest Card
+
+Purchase Price
+
+1
+
+Adrix and Nev, Twincasters
+
+c21
+
+Near Mint
+
+English
+
+foil
+
+9
+
+
+FALSE
+
+
+1
+
+Adrix and Nev, Twincasters
+
+oc21
+
+LP
+
+English
+
+etched
+
+9
+
+TRUE
+
+
+
+1
+
+Advanced Scout
+
+tmp
+
+HP
+
+English
+
+
+1
+
+
+
+
+4
+
+Advanced Stitchwing
+
+2x2
+
+NM
+
+English
+
+
+36
+
+
+
+0.21
