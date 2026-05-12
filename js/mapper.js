@@ -5,8 +5,9 @@
  * Certains codes DragonShield ne sont pas reconnus par Moxfield.
  */
 const EDITION_REMAP = {
-  'mb1': 'fmb1',   // Mystery Booster → Mystery Booster Retail Edition
-  'ppre': 'pres',  // Prerelease promos (variante)
+  // Pas de remap nécessaire — les codes DragonShield correspondent aux codes Scryfall.
+  // Les quelques cartes non reconnues par Moxfield (promos, Mystery Booster)
+  // seront signalées comme erreurs à l'import mais n'affectent pas le reste.
 };
 
 /**
