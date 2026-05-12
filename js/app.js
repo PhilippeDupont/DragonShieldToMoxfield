@@ -5,6 +5,7 @@ import { mapEntries } from './mapper.js';
 import { writeCSV } from './writer.js';
 import { readFile, createDownloadURL, createZipArchive } from './file-handler.js';
 import { initLang, toggleLang, t, onLangChange } from './i18n.js';
+import { initMergeTab } from './merge-app.js';
 
 /** @type {File[]} */
 let selectedFiles = [];
@@ -16,11 +17,62 @@ let convertedFiles = [];
 let lastResults = [];
 
 /**
+ * Initialise la navigation par onglets.
+ */
+function initTabs() {
+  const tabs = document.querySelectorAll('[role="tab"]');
+  const panels = document.querySelectorAll('[role="tabpanel"]');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      // Désactiver tous les onglets
+      tabs.forEach(t => {
+        t.setAttribute('aria-selected', 'false');
+        t.classList.remove('tab--active');
+      });
+      // Masquer tous les panneaux
+      panels.forEach(p => p.hidden = true);
+      // Activer l'onglet cliqué
+      tab.setAttribute('aria-selected', 'true');
+      tab.classList.add('tab--active');
+      // Afficher le panneau correspondant
+      const panelId = tab.getAttribute('aria-controls');
+      document.getElementById(panelId).hidden = false;
+    });
+
+    // Keyboard navigation (left/right arrows)
+    tab.addEventListener('keydown', (e) => {
+      const tabArray = Array.from(tabs);
+      const currentIndex = tabArray.indexOf(tab);
+      let newIndex = -1;
+
+      if (e.key === 'ArrowRight') {
+        newIndex = (currentIndex + 1) % tabArray.length;
+      } else if (e.key === 'ArrowLeft') {
+        newIndex = (currentIndex - 1 + tabArray.length) % tabArray.length;
+      }
+
+      if (newIndex >= 0) {
+        e.preventDefault();
+        tabArray[newIndex].click();
+        tabArray[newIndex].focus();
+      }
+    });
+  });
+}
+
+/**
  * Initialise l'application : attache les événements UI.
  */
 export function init() {
   // Initialize i18n
   initLang();
+
+  // Initialize tab navigation
+  initTabs();
+
+  // Initialize merge tab
+  initMergeTab();
 
   const dropZone = document.getElementById('drop-zone');
   const fileInput = document.getElementById('file-input');

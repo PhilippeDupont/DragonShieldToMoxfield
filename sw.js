@@ -1,6 +1,6 @@
 // sw.js — Service Worker pour le fonctionnement hors-ligne
 
-const CACHE_VERSION = 'v2';
+const CACHE_VERSION = 'v3';
 const CACHE_NAME = `csv-moxfield-converter-${CACHE_VERSION}`;
 
 const STATIC_ASSETS = [
@@ -13,6 +13,9 @@ const STATIC_ASSETS = [
   './js/writer.js',
   './js/file-handler.js',
   './js/i18n.js',
+  './js/mox-parser.js',
+  './js/merger.js',
+  './js/merge-app.js',
   'https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js',
 ];
 

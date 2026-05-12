@@ -22,48 +22,112 @@
             <p class="subtitle" data-i18n="subtitle">Convertissez vos exports DragonShield de cartes Magic: The Gathering au format Moxfield, directement dans votre navigateur.</p>
         </header>
 
-        <section class="upload-section" aria-labelledby="upload-heading">
-            <h2 id="upload-heading" class="sr-only">Chargement des fichiers</h2>
+        <nav class="tab-bar" role="tablist" aria-label="Navigation principale">
+            <button role="tab" id="tab-convert" class="tab tab--active" aria-selected="true" aria-controls="panel-convert" data-i18n="tabConvert">Convertir</button>
+            <button role="tab" id="tab-merge" class="tab" aria-selected="false" aria-controls="panel-merge" data-i18n="tabMerge">Fusionner</button>
+        </nav>
 
-            <div id="drop-zone" class="drop-zone" role="region" aria-label="Zone de dépôt de fichiers" tabindex="0">
-                <div class="drop-zone__content">
-                    <svg class="drop-zone__icon" aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                        <polyline points="17 8 12 3 7 8"/>
-                        <line x1="12" y1="3" x2="12" y2="15"/>
-                    </svg>
-                    <p class="drop-zone__text" data-i18n="dropText">Glissez vos fichiers CSV ici</p>
-                    <p class="drop-zone__hint" data-i18n="dropHint">ou</p>
-                    <label for="file-input" class="btn btn--secondary" data-i18n="selectFiles">
-                        Sélectionner des fichiers
-                    </label>
-                    <input type="file" id="file-input" multiple accept=".csv" class="sr-only" aria-label="Sélectionner des fichiers CSV">
+        <div role="tabpanel" id="panel-convert" aria-labelledby="tab-convert">
+            <section class="upload-section" aria-labelledby="upload-heading">
+                <h2 id="upload-heading" class="sr-only">Chargement des fichiers</h2>
+
+                <div id="drop-zone" class="drop-zone" role="region" aria-label="Zone de dépôt de fichiers" tabindex="0">
+                    <div class="drop-zone__content">
+                        <svg class="drop-zone__icon" aria-hidden="true" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                            <polyline points="17 8 12 3 7 8"/>
+                            <line x1="12" y1="3" x2="12" y2="15"/>
+                        </svg>
+                        <p class="drop-zone__text" data-i18n="dropText">Glissez vos fichiers CSV ici</p>
+                        <p class="drop-zone__hint" data-i18n="dropHint">ou</p>
+                        <label for="file-input" class="btn btn--secondary" data-i18n="selectFiles">
+                            Sélectionner des fichiers
+                        </label>
+                        <input type="file" id="file-input" multiple accept=".csv" class="sr-only" aria-label="Sélectionner des fichiers CSV">
+                    </div>
                 </div>
-            </div>
 
-            <div id="file-list" class="file-list" role="list" aria-label="Fichiers sélectionnés" aria-live="polite" hidden>
-            </div>
-
-            <button id="convert-btn" class="btn btn--primary" disabled data-i18n="convert">
-                Convertir
-            </button>
-        </section>
-
-        <section id="results-section" class="results-section" aria-labelledby="results-heading" hidden>
-            <div class="results-header">
-                <h2 id="results-heading" data-i18n="results">Résultats</h2>
-                <div id="download-all" class="download-all" hidden>
-                    <button id="merge-btn" class="btn btn--primary btn--sm" data-i18n="downloadMerged">
-                        Télécharger tout (1 fichier)
-                    </button>
-                    <button id="zip-btn" class="btn btn--secondary btn--sm" data-i18n="downloadAll">
-                        Télécharger tout (ZIP)
-                    </button>
+                <div id="file-list" class="file-list" role="list" aria-label="Fichiers sélectionnés" aria-live="polite" hidden>
                 </div>
-            </div>
-            <div id="results-list" class="results-list" role="list" aria-live="polite">
-            </div>
-        </section>
+
+                <button id="convert-btn" class="btn btn--primary" disabled data-i18n="convert">
+                    Convertir
+                </button>
+            </section>
+
+            <section id="results-section" class="results-section" aria-labelledby="results-heading" hidden>
+                <div class="results-header">
+                    <h2 id="results-heading" data-i18n="results">Résultats</h2>
+                    <div id="download-all" class="download-all" hidden>
+                        <button id="merge-btn" class="btn btn--primary btn--sm" data-i18n="downloadMerged">
+                            Télécharger tout (1 fichier)
+                        </button>
+                        <button id="zip-btn" class="btn btn--secondary btn--sm" data-i18n="downloadAll">
+                            Télécharger tout (ZIP)
+                        </button>
+                    </div>
+                </div>
+                <div id="results-list" class="results-list" role="list" aria-live="polite">
+                </div>
+            </section>
+        </div>
+
+        <div role="tabpanel" id="panel-merge" aria-labelledby="tab-merge" hidden>
+            <section class="merge-section" aria-labelledby="merge-heading">
+                <h2 id="merge-heading" class="sr-only">Fusion de collections</h2>
+
+                <div class="merge-dropzones">
+                    <div class="merge-dropzone-wrapper">
+                        <label class="merge-dropzone-label" data-i18n="dropDS">Fichier DragonShield</label>
+                        <div id="drop-zone-ds" class="drop-zone drop-zone--merge" role="region" aria-label="Zone de dépôt DragonShield" tabindex="0">
+                            <div class="drop-zone__content">
+                                <svg class="drop-zone__icon" aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                                <p class="drop-zone__text drop-zone__text--sm" data-i18n="dropText">Glissez vos fichiers CSV ici</p>
+                                <label for="file-input-ds" class="btn btn--secondary btn--sm" data-i18n="selectFiles">
+                                    Sélectionner des fichiers
+                                </label>
+                                <input type="file" id="file-input-ds" accept=".csv" class="sr-only" aria-label="Sélectionner un fichier DragonShield">
+                            </div>
+                            <p id="ds-file-name" class="drop-zone__filename" hidden></p>
+                        </div>
+                    </div>
+
+                    <div class="merge-dropzone-wrapper">
+                        <label class="merge-dropzone-label" data-i18n="dropMox">Fichier Moxfield</label>
+                        <div id="drop-zone-mox" class="drop-zone drop-zone--merge" role="region" aria-label="Zone de dépôt Moxfield" tabindex="0">
+                            <div class="drop-zone__content">
+                                <svg class="drop-zone__icon" aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                                    <polyline points="17 8 12 3 7 8"/>
+                                    <line x1="12" y1="3" x2="12" y2="15"/>
+                                </svg>
+                                <p class="drop-zone__text drop-zone__text--sm" data-i18n="dropText">Glissez vos fichiers CSV ici</p>
+                                <label for="file-input-mox" class="btn btn--secondary btn--sm" data-i18n="selectFiles">
+                                    Sélectionner des fichiers
+                                </label>
+                                <input type="file" id="file-input-mox" accept=".csv" class="sr-only" aria-label="Sélectionner un fichier Moxfield">
+                            </div>
+                            <p id="mox-file-name" class="drop-zone__filename" hidden></p>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="merge-action-btn" class="btn btn--primary" disabled data-i18n="mergeBtn">
+                    Fusionner
+                </button>
+            </section>
+
+            <section id="merge-results-section" class="results-section" aria-labelledby="merge-results-heading" hidden>
+                <h2 id="merge-results-heading" data-i18n="mergeReport">Rapport de fusion</h2>
+                <div id="merge-report" class="merge-report"></div>
+                <div id="merge-downloads" class="merge-downloads"></div>
+                <div id="merge-errors" class="merge-errors"></div>
+            </section>
+        </div>
     </main>
 
     <footer class="app-footer">
