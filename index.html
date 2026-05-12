@@ -50,13 +50,15 @@
         </section>
 
         <section id="results-section" class="results-section" aria-labelledby="results-heading" hidden>
-            <h2 id="results-heading" data-i18n="results">Résultats</h2>
-            <div id="results-list" class="results-list" role="list" aria-live="polite">
+            <div class="results-header">
+                <h2 id="results-heading" data-i18n="results">Résultats</h2>
+                <div id="download-all" class="download-all" hidden>
+                    <button id="zip-btn" class="btn btn--primary btn--sm" data-i18n="downloadAll">
+                        Télécharger tout (ZIP)
+                    </button>
+                </div>
             </div>
-            <div id="download-all" class="download-all" hidden>
-                <button id="zip-btn" class="btn btn--primary" data-i18n="downloadAll">
-                    Télécharger tout (ZIP)
-                </button>
+            <div id="results-list" class="results-list" role="list" aria-live="polite">
             </div>
         </section>
     </main>

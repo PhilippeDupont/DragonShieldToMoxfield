@@ -300,9 +300,27 @@ body {
   margin-top: 2rem;
 }
 
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
 .results-section h2 {
   font-size: 1.25rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
+}
+
+.download-all {
+  margin: 0;
+}
+
+.btn--sm {
+  font-size: 0.875rem;
+  padding: 0.5rem 1rem;
 }
 
 .results-list {
@@ -415,11 +433,6 @@ body {
 /* === Download === */
 .result-card__download {
   margin-top: 0.75rem;
-}
-
-.download-all {
-  margin-top: 1.5rem;
-  text-align: center;
 }
 
 /* === Responsive === */
