@@ -98,6 +98,10 @@ export function init() {
 
   // ZIP button
   zipBtn.addEventListener('click', handleZipDownload);
+
+  // Merge button (single combined file)
+  const mergeBtn = document.getElementById('merge-btn');
+  mergeBtn.addEventListener('click', handleMergeDownload);
 }
 
 /**
@@ -443,6 +447,41 @@ async function handleZipDownload() {
     zipBtn.disabled = false;
     zipBtn.textContent = t('downloadAll');
   }
+}
+
+/**
+ * Gère le téléchargement d'un fichier unique combinant tous les CSV convertis.
+ * Un seul header + toutes les lignes de données concaténées.
+ */
+function handleMergeDownload() {
+  if (convertedFiles.length === 0) return;
+
+  // Combine: take header from first file, then all data lines from all files
+  const allLines = [];
+  let header = '';
+
+  for (let i = 0; i < convertedFiles.length; i++) {
+    const lines = convertedFiles[i].content.trim().split('\n');
+    if (i === 0) {
+      header = lines[0];
+    }
+    // Add data lines (skip header)
+    for (let j = 1; j < lines.length; j++) {
+      allLines.push(lines[j]);
+    }
+  }
+
+  const mergedContent = header + '\n' + allLines.join('\n') + '\n';
+  const { url } = createDownloadURL(mergedContent, 'collection_moxfield.csv');
+
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'collection_moxfield.csv';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+
+  setTimeout(() => URL.revokeObjectURL(url), 5000);
 }
 
 // Initialize when DOM is ready
