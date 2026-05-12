@@ -42,11 +42,26 @@ const translations = {
     mergeErrorMox: 'Impossible de lire le fichier Moxfield',
     convertInfo: 'Critères de conversion',
     convertInfoContent: `• Les tokens et emblèmes sont exclus (non supportés par Moxfield)
-• Conditions : Mint→Mint, NearMint→Near Mint, Excellent→Near Mint, Good→Lightly Played, LightPlayed→Lightly Played, Played→Played, HeavilyPlayed→Heavily Played, Poor→Damaged
-• Finitions : Normal→(vide), Foil/Galaxy Foil/Surge Foil→foil, Etched→etched
 • Édition : convertie en minuscules (code Scryfall)
 • Prix : arrondi à 2 décimales, 0 = vide
-• Langues : toutes les langues Moxfield supportées (17)`,
+• Langues : toutes les langues Moxfield supportées (17)
+
+Conditions :
+  Mint → Mint
+  NearMint → Near Mint
+  Excellent → Near Mint
+  Good → Lightly Played
+  LightPlayed → Lightly Played
+  Played → Played
+  HeavilyPlayed → Heavily Played
+  Poor → Damaged
+
+Finitions :
+  Normal → (vide)
+  Foil → foil
+  Galaxy Foil → foil
+  Surge Foil → foil
+  Etched → etched`,
     mergeInfo: 'Critères de fusion',
     mergeInfoContent: `• Deux cartes sont considérées identiques si elles ont le même nom, édition, numéro de collecteur, type de foil et langue (la condition est ignorée)
 • Si une carte est dans les deux fichiers : on garde la quantité maximale
@@ -96,11 +111,26 @@ const translations = {
     mergeErrorMox: 'Unable to read Moxfield file',
     convertInfo: 'Conversion rules',
     convertInfoContent: `• Tokens and emblems are excluded (not supported by Moxfield)
-• Conditions: Mint→Mint, NearMint→Near Mint, Excellent→Near Mint, Good→Lightly Played, LightPlayed→Lightly Played, Played→Played, HeavilyPlayed→Heavily Played, Poor→Damaged
-• Finishes: Normal→(empty), Foil/Galaxy Foil/Surge Foil→foil, Etched→etched
 • Edition: converted to lowercase (Scryfall code)
 • Price: rounded to 2 decimals, 0 = empty
-• Languages: all 17 Moxfield languages supported`,
+• Languages: all 17 Moxfield languages supported
+
+Conditions:
+  Mint → Mint
+  NearMint → Near Mint
+  Excellent → Near Mint
+  Good → Lightly Played
+  LightPlayed → Lightly Played
+  Played → Played
+  HeavilyPlayed → Heavily Played
+  Poor → Damaged
+
+Finishes:
+  Normal → (empty)
+  Foil → foil
+  Galaxy Foil → foil
+  Surge Foil → foil
+  Etched → etched`,
     mergeInfo: 'Merge rules',
     mergeInfoContent: `• Two cards are considered identical if they share the same name, edition, collector number, foil type, and language (condition is ignored)
 • If a card is in both files: the maximum quantity is kept
