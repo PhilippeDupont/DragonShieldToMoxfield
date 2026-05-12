@@ -219,6 +219,11 @@ export async function convertFile(file) {
     // Map entries
     const { mapped, warnings: mapWarnings } = mapEntries(parseResult.entries);
 
+    // Calculate total cards and duplicates
+    const totalCards = mapped.reduce((sum, entry) => sum + entry.count, 0);
+    const uniqueCards = mapped.length;
+    const duplicates = totalCards - uniqueCards;
+
     // Write CSV
     const csvOutput = writeCSV(mapped);
 
@@ -231,6 +236,9 @@ export async function convertFile(file) {
       warnings: allWarnings,
       error: null,
       entryCount: mapped.length,
+      totalCards,
+      uniqueCards,
+      duplicates,
     };
   } catch (err) {
     return {
@@ -280,7 +288,11 @@ function renderResult(result) {
     // Info line
     const info = document.createElement('div');
     info.className = 'result-card__info';
-    info.textContent = t('cardsConverted')(result.entryCount);
+    let infoText = t('cardsConverted')(result.totalCards);
+    if (result.duplicates > 0) {
+      infoText += ` (${result.uniqueCards} ${t('unique')}, ${result.duplicates} ${t('duplicates')})`;
+    }
+    info.textContent = infoText;
     card.appendChild(info);
 
     // Warnings
