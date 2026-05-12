@@ -6,9 +6,13 @@
 const CONDITION_MAP = {
   'Mint': 'Mint',
   'NearMint': 'Near Mint',
+  'Excellent': 'Near Mint',
+  'Good': 'Lightly Played',
   'LightlyPlayed': 'Lightly Played',
+  'LightPlayed': 'Lightly Played',
   'Played': 'Played',
   'HeavilyPlayed': 'Heavily Played',
+  'Poor': 'Damaged',
   'Damaged': 'Damaged',
 };
 
@@ -19,6 +23,7 @@ const PRINTING_MAP = {
   'Normal': '',
   'Foil': 'foil',
   'Galaxy Foil': 'foil',
+  'Surge Foil': 'foil',
   'Etched': 'etched',
 };
 
@@ -78,8 +83,9 @@ export function mapEntries(entries) {
 
     // Printing → foil mapping
     let foil;
-    if (Object.prototype.hasOwnProperty.call(PRINTING_MAP, entry.printing)) {
-      foil = PRINTING_MAP[entry.printing];
+    const printingValue = entry.printing || 'Normal';
+    if (Object.prototype.hasOwnProperty.call(PRINTING_MAP, printingValue)) {
+      foil = PRINTING_MAP[printingValue];
     } else {
       foil = '';
       warnings.push(`Ligne ${lineNum} : printing '${entry.printing}' inconnu, traité comme Normal`);

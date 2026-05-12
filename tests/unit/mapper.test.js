@@ -24,9 +24,13 @@ describe('mapEntries — Conditions', () => {
   it.each([
     ['Mint', 'Mint'],
     ['NearMint', 'Near Mint'],
+    ['Excellent', 'Near Mint'],
+    ['Good', 'Lightly Played'],
     ['LightlyPlayed', 'Lightly Played'],
+    ['LightPlayed', 'Lightly Played'],
     ['Played', 'Played'],
     ['HeavilyPlayed', 'Heavily Played'],
+    ['Poor', 'Damaged'],
     ['Damaged', 'Damaged'],
   ])('mappe la condition "%s" vers "%s"', (input, expected) => {
     const { mapped, warnings } = mapEntries([makeEntry({ condition: input })]);
@@ -35,7 +39,7 @@ describe('mapEntries — Conditions', () => {
   });
 
   it('condition inconnue → "Near Mint" + warning', () => {
-    const { mapped, warnings } = mapEntries([makeEntry({ condition: 'Excellent' })]);
+    const { mapped, warnings } = mapEntries([makeEntry({ condition: 'SuperRare' })]);
     expect(mapped[0].condition).toBe('Near Mint');
     expect(warnings.length).toBeGreaterThan(0);
     expect(warnings[0]).toMatch(/condition.*inconnue/i);
