@@ -45,6 +45,17 @@ const translations = {
 
 let currentLang = 'fr';
 
+/** @type {Function[]} */
+const onLangChangeCallbacks = [];
+
+/**
+ * Enregistre un callback appelé à chaque changement de langue.
+ * @param {Function} cb
+ */
+export function onLangChange(cb) {
+  onLangChangeCallbacks.push(cb);
+}
+
 /**
  * Détecte la langue du navigateur et retourne 'fr' ou 'en'.
  */
@@ -99,6 +110,7 @@ export function applyTranslations() {
 export function toggleLang() {
   currentLang = currentLang === 'fr' ? 'en' : 'fr';
   applyTranslations();
+  onLangChangeCallbacks.forEach((cb) => cb());
 }
 
 /**

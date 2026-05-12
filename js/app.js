@@ -4,13 +4,16 @@ import { parseCSV } from './parser.js';
 import { mapEntries } from './mapper.js';
 import { writeCSV } from './writer.js';
 import { readFile, createDownloadURL, createZipArchive } from './file-handler.js';
-import { initLang, toggleLang, t } from './i18n.js';
+import { initLang, toggleLang, t, onLangChange } from './i18n.js';
 
 /** @type {File[]} */
 let selectedFiles = [];
 
 /** @type {{ filename: string, content: string }[]} */
 let convertedFiles = [];
+
+/** @type {ConversionResult[]} */
+let lastResults = [];
 
 /**
  * Initialise l'application : attache les événements UI.
@@ -27,6 +30,14 @@ export function init() {
 
   // Language toggle
   langBtn.addEventListener('click', toggleLang);
+
+  // Re-render dynamic content on language change
+  onLangChange(() => {
+    renderFileList();
+    if (lastResults.length > 0) {
+      rerenderResults();
+    }
+  });
 
   // Click on drop zone triggers file input
   dropZone.addEventListener('click', (e) => {
@@ -179,6 +190,18 @@ function hideResults() {
   resultsSection.hidden = true;
   document.getElementById('results-list').innerHTML = '';
   document.getElementById('download-all').hidden = true;
+  lastResults = [];
+}
+
+/**
+ * Re-rend les résultats de conversion (après changement de langue).
+ */
+function rerenderResults() {
+  const resultsList = document.getElementById('results-list');
+  resultsList.innerHTML = '';
+  for (const result of lastResults) {
+    renderResult(result);
+  }
 }
 
 /**
@@ -190,6 +213,7 @@ async function handleConvert() {
   convertBtn.textContent = t('converting');
 
   convertedFiles = [];
+  lastResults = [];
   const resultsSection = document.getElementById('results-section');
   const resultsList = document.getElementById('results-list');
   resultsList.innerHTML = '';
@@ -197,6 +221,7 @@ async function handleConvert() {
 
   for (const file of selectedFiles) {
     const result = await convertFile(file);
+    lastResults.push(result);
     renderResult(result);
 
     if (!result.error) {
