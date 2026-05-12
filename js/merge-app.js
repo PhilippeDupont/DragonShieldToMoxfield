@@ -202,6 +202,12 @@ async function handleMerge() {
     renderMergeReport(result.report, reportEl);
     renderDownloads(mergedCSV, diffMoxCSV, diffDSCSV, downloadsEl);
 
+    // Show warnings (tokens excluded, etc.)
+    const allWarnings = [...dsParseResult.warnings, ...mapWarnings, ...moxParseResult.warnings];
+    if (allWarnings.length > 0) {
+      renderMergeWarnings(allWarnings, errorsEl);
+    }
+
   } catch (err) {
     resultsSection.hidden = false;
     const errorDiv = document.createElement('div');
@@ -293,4 +299,42 @@ function createDownloadLink(content, filename, label) {
   link.textContent = label;
   link.setAttribute('aria-label', label);
   return link;
+}
+
+/**
+ * Affiche les avertissements de la fusion (tokens exclus, etc.).
+ * @param {string[]} warnings
+ * @param {HTMLElement} container
+ */
+function renderMergeWarnings(warnings, container) {
+  const wrapper = document.createElement('div');
+  wrapper.className = 'warnings';
+  wrapper.style.marginTop = '1rem';
+
+  const collapsed = warnings.length > 5;
+
+  const toggle = document.createElement('button');
+  toggle.className = 'warnings__toggle';
+  toggle.setAttribute('aria-expanded', String(!collapsed));
+  toggle.textContent = t('warnings')(warnings.length);
+
+  const list = document.createElement('ul');
+  list.className = 'warnings__list';
+  list.hidden = collapsed;
+
+  for (const w of warnings) {
+    const li = document.createElement('li');
+    li.textContent = w;
+    list.appendChild(li);
+  }
+
+  toggle.addEventListener('click', () => {
+    const isHidden = list.hidden;
+    list.hidden = !isHidden;
+    toggle.setAttribute('aria-expanded', String(isHidden));
+  });
+
+  wrapper.appendChild(toggle);
+  wrapper.appendChild(list);
+  container.appendChild(wrapper);
 }
