@@ -1,6 +1,25 @@
 // mapper.js — Règles de mapping DragonShield → Moxfield
 
 /**
+ * Table de remapping des codes d'édition DragonShield → Scryfall/Moxfield.
+ * Certains codes DragonShield ne sont pas reconnus par Moxfield.
+ */
+const EDITION_REMAP = {
+  'mb1': 'fmb1',   // Mystery Booster → Mystery Booster Retail Edition
+  'ppre': 'pres',  // Prerelease promos (variante)
+};
+
+/**
+ * Noms de cartes à exclure (tokens, emblèmes — non supportés par Moxfield import).
+ * @param {string} name
+ * @returns {boolean} true si la carte doit être exclue
+ */
+export function isExcludedCard(name) {
+  const lower = name.toLowerCase();
+  return lower.endsWith(' token') || lower.endsWith(' emblem');
+}
+
+/**
  * Table de mapping des conditions DragonShield → Moxfield.
  */
 const CONDITION_MAP = {
@@ -63,6 +82,12 @@ export function mapEntries(entries) {
     const entry = entries[i];
     const lineNum = i + 1;
 
+    // Skip tokens and emblems (not supported by Moxfield import)
+    if (isExcludedCard(entry.cardName)) {
+      warnings.push(`Ligne ${lineNum} : '${entry.cardName}' est un token/emblème, exclu de la conversion`);
+      continue;
+    }
+
     // Condition mapping
     let condition;
     if (Object.prototype.hasOwnProperty.call(CONDITION_MAP, entry.condition)) {
@@ -102,7 +127,7 @@ export function mapEntries(entries) {
     mapped.push({
       count: Math.floor(Number(entry.quantity)),
       name: entry.cardName,
-      edition: entry.setCode.toLowerCase(),
+      edition: EDITION_REMAP[entry.setCode.toLowerCase()] || entry.setCode.toLowerCase(),
       condition,
       language,
       foil,
