@@ -11,7 +11,6 @@ export function computeCardIdentity(entry) {
     entry.edition.toLowerCase(),
     entry.collectorNumber,
     entry.foil.toLowerCase(),
-    entry.condition.toLowerCase(),
     entry.language.toLowerCase()
   ];
   return parts.join('||');

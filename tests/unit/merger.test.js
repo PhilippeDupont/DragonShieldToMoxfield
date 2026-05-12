@@ -40,10 +40,10 @@ describe('computeCardIdentity', () => {
     expect(computeCardIdentity(a)).not.toBe(computeCardIdentity(b));
   });
 
-  it('condition différente → clés différentes', () => {
+  it('condition différente → même clé (condition ignorée dans l\'identité)', () => {
     const a = makeEntry({ condition: 'Near Mint' });
     const b = makeEntry({ condition: 'Lightly Played' });
-    expect(computeCardIdentity(a)).not.toBe(computeCardIdentity(b));
+    expect(computeCardIdentity(a)).toBe(computeCardIdentity(b));
   });
 
   it('name différent → clés différentes', () => {
@@ -64,7 +64,7 @@ describe('computeCardIdentity', () => {
     expect(computeCardIdentity(a)).not.toBe(computeCardIdentity(b));
   });
 
-  it('condition en casse différente → même clé (normalisation lowercase)', () => {
+  it('condition en casse différente → même clé (condition ignorée)', () => {
     const a = makeEntry({ condition: 'Near Mint' });
     const b = makeEntry({ condition: 'near mint' });
     expect(computeCardIdentity(a)).toBe(computeCardIdentity(b));
