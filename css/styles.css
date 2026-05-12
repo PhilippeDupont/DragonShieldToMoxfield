@@ -263,10 +263,19 @@ body {
   align-items: center;
   padding: 0.75rem 1rem;
   border-bottom: 1px solid var(--color-border);
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 .file-list__item:last-child {
   border-bottom: none;
+}
+
+.file-list__info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
 }
 
 .file-list__name {
@@ -278,7 +287,12 @@ body {
   color: var(--color-text-muted);
   font-size: 0.875rem;
   white-space: nowrap;
-  margin-left: 1rem;
+}
+
+.file-list__stats {
+  color: var(--color-text-muted);
+  font-size: 0.8125rem;
+  font-style: italic;
 }
 
 /* === Results Section === */

@@ -104,9 +104,9 @@ function setFiles(files) {
 }
 
 /**
- * Affiche la liste des fichiers sélectionnés.
+ * Affiche la liste des fichiers sélectionnés avec un aperçu du nombre de cartes.
  */
-function renderFileList() {
+async function renderFileList() {
   const fileListEl = document.getElementById('file-list');
   fileListEl.innerHTML = '';
   fileListEl.hidden = selectedFiles.length === 0;
@@ -116,6 +116,9 @@ function renderFileList() {
     item.className = 'file-list__item';
     item.setAttribute('role', 'listitem');
 
+    const infoDiv = document.createElement('div');
+    infoDiv.className = 'file-list__info';
+
     const nameEl = document.createElement('span');
     nameEl.className = 'file-list__name';
     nameEl.textContent = file.name;
@@ -124,9 +127,36 @@ function renderFileList() {
     sizeEl.className = 'file-list__size';
     sizeEl.textContent = formatFileSize(file.size);
 
-    item.appendChild(nameEl);
-    item.appendChild(sizeEl);
+    infoDiv.appendChild(nameEl);
+    infoDiv.appendChild(sizeEl);
+    item.appendChild(infoDiv);
+
+    // Preview card count from source file
+    const statsEl = document.createElement('span');
+    statsEl.className = 'file-list__stats';
+    statsEl.textContent = '…';
+    item.appendChild(statsEl);
+
     fileListEl.appendChild(item);
+
+    // Async: read and parse to show card count
+    try {
+      const text = await readFile(file);
+      const { entries } = parseCSV(text);
+      const totalCards = entries.reduce((sum, e) => sum + e.quantity, 0);
+      const uniqueCards = entries.length;
+      const duplicates = totalCards - uniqueCards;
+
+      let statsText = t('cardsConverted')(totalCards);
+      if (duplicates > 0) {
+        statsText = `${totalCards} ${t('cards')} (${uniqueCards} ${t('unique')}, ${duplicates} ${t('duplicates')})`;
+      } else {
+        statsText = `${totalCards} ${t('cards')}`;
+      }
+      statsEl.textContent = statsText;
+    } catch {
+      statsEl.textContent = '';
+    }
   }
 }
 
