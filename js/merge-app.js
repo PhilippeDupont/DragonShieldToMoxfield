@@ -8,6 +8,20 @@ import { parseMoxfieldCSV } from './mox-parser.js';
 import { merge } from './merger.js';
 import { t } from './i18n.js';
 
+/**
+ * Génère un timestamp pour les noms de fichiers (YYYY-MM-DD_HHmm).
+ * @returns {string}
+ */
+function getTimestamp() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  const h = String(now.getHours()).padStart(2, '0');
+  const min = String(now.getMinutes()).padStart(2, '0');
+  return `${y}-${m}-${d}_${h}${min}`;
+}
+
 /** @type {File|null} */
 let dsFile = null;
 
@@ -266,19 +280,21 @@ function renderMergeReport(report, container) {
  * @param {HTMLElement} container
  */
 function renderDownloads(mergedCSV, diffMoxCSV, diffDSCSV, container) {
+  const ts = getTimestamp();
+
   // Merged file — always present
-  const mergedLink = createDownloadLink(mergedCSV, 'collection_merged.csv', t('downloadMergedFile'));
+  const mergedLink = createDownloadLink(mergedCSV, `collection_merged_${ts}.csv`, t('downloadMergedFile'));
   container.appendChild(mergedLink);
 
   // Diff for Moxfield — only if non-empty
   if (diffMoxCSV) {
-    const diffMoxLink = createDownloadLink(diffMoxCSV, 'ajout_moxfield.csv', t('downloadDiffMox'));
+    const diffMoxLink = createDownloadLink(diffMoxCSV, `ajout_moxfield_${ts}.csv`, t('downloadDiffMox'));
     container.appendChild(diffMoxLink);
   }
 
   // Diff for DragonShield — only if non-empty
   if (diffDSCSV) {
-    const diffDSLink = createDownloadLink(diffDSCSV, 'ajout_dragonshield.csv', t('downloadDiffDS'));
+    const diffDSLink = createDownloadLink(diffDSCSV, `ajout_dragonshield_${ts}.csv`, t('downloadDiffDS'));
     container.appendChild(diffDSLink);
   }
 }

@@ -239,6 +239,20 @@ function formatFileSize(bytes) {
 }
 
 /**
+ * Génère un timestamp pour les noms de fichiers (YYYY-MM-DD_HHmm).
+ * @returns {string}
+ */
+function getTimestamp() {
+  const now = new Date();
+  const y = now.getFullYear();
+  const m = String(now.getMonth() + 1).padStart(2, '0');
+  const d = String(now.getDate()).padStart(2, '0');
+  const h = String(now.getHours()).padStart(2, '0');
+  const min = String(now.getMinutes()).padStart(2, '0');
+  return `${y}-${m}-${d}_${h}${min}`;
+}
+
+/**
  * Cache la section de résultats.
  */
 function hideResults() {
@@ -307,7 +321,7 @@ async function handleConvert() {
  */
 export async function convertFile(file) {
   const baseName = file.name.replace(/\.csv$/i, '');
-  const outputFilename = baseName + '_moxfield.csv';
+  const outputFilename = `${baseName}_moxfield_${getTimestamp()}.csv`;
 
   try {
     // Read file content
@@ -481,7 +495,7 @@ async function handleZipDownload() {
 
     const link = document.createElement('a');
     link.href = url;
-    link.download = 'moxfield_export.zip';
+    link.download = `moxfield_export_${getTimestamp()}.zip`;
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -524,11 +538,12 @@ function handleMergeDownload() {
   }
 
   const mergedContent = header + '\n' + allLines.join('\n') + '\n';
-  const { url } = createDownloadURL(mergedContent, 'collection_moxfield.csv');
+  const mergedFilename = `collection_moxfield_${getTimestamp()}.csv`;
+  const { url } = createDownloadURL(mergedContent, mergedFilename);
 
   const link = document.createElement('a');
   link.href = url;
-  link.download = 'collection_moxfield.csv';
+  link.download = mergedFilename;
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
