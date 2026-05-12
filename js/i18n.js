@@ -40,6 +40,20 @@ const translations = {
     downloadDiffDS: 'À importer dans DragonShield (manquantes)',
     mergeErrorDS: 'Impossible de lire le fichier DragonShield',
     mergeErrorMox: 'Impossible de lire le fichier Moxfield',
+    convertInfo: 'Critères de conversion',
+    convertInfoContent: `• Les tokens et emblèmes sont exclus (non supportés par Moxfield)
+• Conditions : Mint→Mint, NearMint→Near Mint, Excellent→Near Mint, Good→Lightly Played, LightPlayed→Lightly Played, Played→Played, HeavilyPlayed→Heavily Played, Poor→Damaged
+• Finitions : Normal→(vide), Foil/Galaxy Foil/Surge Foil→foil, Etched→etched
+• Édition : convertie en minuscules (code Scryfall)
+• Prix : arrondi à 2 décimales, 0 = vide
+• Langues : toutes les langues Moxfield supportées (17)`,
+    mergeInfo: 'Critères de fusion',
+    mergeInfoContent: `• Deux cartes sont considérées identiques si elles ont le même nom, édition, numéro de collecteur, type de foil et langue (la condition est ignorée)
+• Si une carte est dans les deux fichiers : on garde la quantité maximale
+• Les tokens et emblèmes sont exclus
+• Le fichier "À importer dans Moxfield" contient les cartes présentes dans DragonShield mais absentes de Moxfield
+• Le fichier "À importer dans DragonShield" contient les cartes présentes dans Moxfield mais absentes de DragonShield
+• Les conditions DragonShield sont converties vers l'échelle Moxfield avant comparaison`,
   },
   en: {
     title: 'DragonShield → Moxfield Converter',
@@ -80,6 +94,20 @@ const translations = {
     downloadDiffDS: 'Import to DragonShield (missing cards)',
     mergeErrorDS: 'Unable to read DragonShield file',
     mergeErrorMox: 'Unable to read Moxfield file',
+    convertInfo: 'Conversion rules',
+    convertInfoContent: `• Tokens and emblems are excluded (not supported by Moxfield)
+• Conditions: Mint→Mint, NearMint→Near Mint, Excellent→Near Mint, Good→Lightly Played, LightPlayed→Lightly Played, Played→Played, HeavilyPlayed→Heavily Played, Poor→Damaged
+• Finishes: Normal→(empty), Foil/Galaxy Foil/Surge Foil→foil, Etched→etched
+• Edition: converted to lowercase (Scryfall code)
+• Price: rounded to 2 decimals, 0 = empty
+• Languages: all 17 Moxfield languages supported`,
+    mergeInfo: 'Merge rules',
+    mergeInfoContent: `• Two cards are considered identical if they share the same name, edition, collector number, foil type, and language (condition is ignored)
+• If a card is in both files: the maximum quantity is kept
+• Tokens and emblems are excluded
+• "Import to Moxfield" file contains cards in DragonShield but missing from Moxfield
+• "Import to DragonShield" file contains cards in Moxfield but missing from DragonShield
+• DragonShield conditions are converted to Moxfield scale before comparison`,
   },
 };
 

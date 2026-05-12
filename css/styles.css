@@ -647,6 +647,43 @@ body {
   }
 }
 
+/* === Info Details (collapsible) === */
+.info-details {
+  width: 100%;
+  max-width: 720px;
+  margin-bottom: 1.5rem;
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.info-details summary {
+  padding: 0.75rem 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  transition: color var(--transition);
+}
+
+.info-details summary:hover {
+  color: var(--color-text);
+}
+
+.info-details[open] summary {
+  border-bottom: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.info-content {
+  padding: 0.75rem 1rem;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.8;
+  white-space: pre-line;
+}
+
 /* === Footer === */
 .app-footer {
   max-width: 720px;
