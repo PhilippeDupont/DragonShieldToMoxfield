@@ -2,7 +2,7 @@
 
 import { parseCSV } from './parser.js';
 import { mapEntries } from './mapper.js';
-import { writeCSV } from './writer.js';
+import { writeCSV, writeCSVForDragonShield } from './writer.js';
 import { readFile, createDownloadURL, MAX_FILE_SIZE } from './file-handler.js';
 import { parseMoxfieldCSV } from './mox-parser.js';
 import { merge } from './merger.js';
@@ -195,7 +195,7 @@ async function handleMerge() {
     // Write CSVs
     const mergedCSV = writeCSV(result.merged);
     const diffMoxCSV = result.diffForMox.length > 0 ? writeCSV(result.diffForMox) : null;
-    const diffDSCSV = result.diffForDS.length > 0 ? writeCSV(result.diffForDS) : null;
+    const diffDSCSV = result.diffForDS.length > 0 ? writeCSVForDragonShield(result.diffForDS) : null;
 
     // Show results
     resultsSection.hidden = false;
